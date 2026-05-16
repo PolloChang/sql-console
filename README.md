@@ -61,7 +61,7 @@ Summary:
   Download size: 0 B / 16.6 MB
   Space needed: 0 B / 982 GB available
 
-Get:1 /home/pollochang/Documents/git/pollo-lab/sql-console/release/sql-console_0.1.0_amd64.deb sql-console amd64 0.1.0 [16.6 MB]
+Get:1 sql-console/release/sql-console_0.1.0_amd64.deb sql-console amd64 0.1.0 [16.6 MB]
 Selecting previously unselected UDDHSSS sql-console.
 (Reading database ... 355507 files and directories currently installed.)
 Preparing to unpack .../sql-console_0.1.0_amd64.deb ...
@@ -143,7 +143,7 @@ sql_id: list-OSUDLs , transaction: auto-commit
 │ public │ test_trend_shared_pool                  │ OSUDL │ Mauris blandit aliquet elit                                                                         │
 │ public │ mgmt_dba_audit                          │ OSUDL │ Proin eget tortor risus                                                                             │
 │ public │ mgmt_OIKKL_usage_snap                   │ OSUDL │ Donec rutrum congue leo eget malesuada                                                              │
-│ public │ mgmt_monthly_test                     │ OSUDL │ Praesent sapien massa, convallis a pellentesque nec                                                 │
+│ public │ mgmt_monthly_test                       │ OSUDL │ Praesent sapien massa, convallis a pellentesque nec                                                 │
 │ public │ mgmt_obj_inventory                      │ OSUDL │ Nulla quis lorem ut libero malesuada feugiat                                                        │
 │ public │ mgmt_user_audit                         │ OSUDL │ Curabitur non nulla sit amet nisl tempus                                                            │
 │ public │ stat                                    │ OSUDL │                                                                                                     │
