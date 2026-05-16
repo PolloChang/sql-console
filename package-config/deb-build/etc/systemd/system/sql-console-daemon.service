@@ -1,0 +1,16 @@
+[Unit]
+Description=SQL Console Daemon Service
+After=network.target
+
+[Service]
+Type=simple
+User=sql-console
+ExecStart=/usr/bin/java -jar /usr/lib/sql-console/sql-console-daemon.jar
+WorkingDirectory=/usr/lib/sql-console
+Restart=always
+RestartSec=3
+RuntimeDirectory=sql-console
+LogsDirectory=sql-console
+
+[Install]
+WantedBy=multi-user.target

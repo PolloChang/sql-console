@@ -1,0 +1,61 @@
+.TH SQL 1 "May 2026" "sql-console 0.1.0" "User Commands"
+.SH NAME
+sql \- A modern SQL console with server-side pagination and export capabilities.
+.SH SYNOPSIS
+.B sql
+[\fIOPTIONS\fR] [\fISQL_STATEMENT\fR]
+.br
+.B sql profile
+[\fICOMMAND\fR]
+.SH DESCRIPTION
+.B sql
+is a CLI client for sql-console-daemon. It provides an interactive REPL or one-shot execution mode for running SQL queries against various database profiles.
+.SH OPTIONS
+.TP
+.BI \-p " profile"
+Specify the database profile name.
+.TP
+.BI \-o " file"
+Export results to a file (e.g., result.csv).
+.TP
+.BI \-format " fmt"
+Specify export format: csv. Auto-detected from file extension if omitted.
+.TP
+.BI \-sql_id " id"
+Query ID to fetch from cache for pagination.
+.TP
+.BI \-page " num"
+Page number to fetch when using -sql_id.
+.TP
+.BI \-set-transaction " mode"
+Set transaction mode: auto-commit | manual-commit.
+.TP
+.B \-version
+Show version information.
+.SH COMMANDS
+.TP
+.B profile list
+List all saved profiles.
+.TP
+.B profile add
+Add a new database profile.
+.TP
+.B profile delete
+Delete an existing profile.
+.SH EXAMPLES
+.TP
+Interactive REPL:
+sql -p my_db
+.TP
+One-shot execution:
+sql -p my_db "SELECT * FROM users"
+.TP
+Export to CSV:
+sql -p my_db -o users.csv "SELECT * FROM users"
+.TP
+Pagination (Fetch page 2):
+sql -p my_db -sql_id abc12345 -page 2
+.SH SEE ALSO
+sql-console-daemon(8)
+.SH AUTHOR
+Pollo Lab

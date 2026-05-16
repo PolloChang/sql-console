@@ -1,0 +1,8 @@
+Package: sql-console
+Version: 0.1.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Maintainer: Pollo Chang <pollochang@example.com>
+Description: A high-performance terminal SQL tool with session isolation and audit logging.
+Suggests: openjdk-21-jre

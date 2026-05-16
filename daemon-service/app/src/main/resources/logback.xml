@@ -1,0 +1,57 @@
+<configuration>
+    <!-- Standard System Log: STDOUT -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
+                <defaultMask>***</defaultMask>
+                <path>password</path>
+                <path>secret</path>
+                <path>token</path>
+            </jsonGeneratorDecorator>
+        </encoder>
+    </appender>
+
+    <!-- Standard System Log: File -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/log/sql-console/daemon.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/log/sql-console/daemon.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
+                <defaultMask>***</defaultMask>
+                <path>password</path>
+                <path>secret</path>
+                <path>token</path>
+            </jsonGeneratorDecorator>
+        </encoder>
+    </appender>
+
+    <!-- Audit Log: As per RFP requirements -->
+    <appender name="AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/log/sql-console/audit.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/log/sql-console/audit.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
+                <defaultMask>***</defaultMask>
+                <path>password</path>
+                <path>secret</path>
+                <path>token</path>
+            </jsonGeneratorDecorator>
+        </encoder>
+    </appender>
+
+    <!-- Dedicated Audit Logger -->
+    <logger name="AUDIT_LOGGER" level="INFO" additivity="false">
+        <appender-ref ref="AUDIT" />
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

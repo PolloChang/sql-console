@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+if [ "$1" = "purge" ]; then
+    rm -f /usr/bin/sql
+    userdel sql-console || true
+    rm -rf /var/log/sql-console
+    rm -rf /usr/lib/sql-console
+fi
+
+exit 0

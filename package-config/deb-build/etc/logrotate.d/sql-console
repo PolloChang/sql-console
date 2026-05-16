@@ -1,0 +1,20 @@
+# Logrotate configuration for sql-console
+# Daily rotation or when size exceeds 20M
+/var/log/sql-console/*.log {
+    daily
+    size 20M
+    rotate 14
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 0640 sql-console adm
+    sharedscripts
+    postrotate
+        if [ -d /run/systemd/system ]; then
+            systemctl kill -s HUP rsyslog.service >/dev/null 2>&1 || true
+        else
+            /etc/init.d/rsyslog rotate >/dev/null 2>&1 || true
+        fi
+    endscript
+}

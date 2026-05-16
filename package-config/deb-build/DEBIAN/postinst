@@ -1,0 +1,41 @@
+#!/bin/bash
+set -e
+
+# 1. Create system user
+if ! id -u sql-console > /dev/null 2>&1; then
+    useradd --system --no-create-home --shell /usr/sbin/nologin sql-console
+fi
+
+# 2. Set permissions (Debian 12 Best Practice)
+# Allow 'adm' group to read logs for system monitoring
+chown -R sql-console:adm /var/log/sql-console
+chmod 750 /var/log/sql-console
+chmod 640 /var/log/sql-console/audit.log
+chmod 640 /var/log/sql-console/daemon.log 2>/dev/null || true
+chown -R sql-console:sql-console /usr/lib/sql-console/libs
+
+# 3. Create symlink for client
+ln -sf /usr/lib/sql-console/sql-client /usr/bin/sql
+
+# 4. Systemd setup
+systemctl daemon-reload
+systemctl enable sql-console-daemon
+systemctl restart rsyslog
+systemctl restart sql-console-daemon
+
+# 5. JRE 21 Detection
+JAVA_VERSION=$(java -version 2>&1 | head -n 1)
+if [[ $JAVA_VERSION == *"21"* ]]; then
+    echo "--------------------------------------------------------"
+    echo " Success: JRE 21 detected. sql-console is ready to use!"
+    echo "--------------------------------------------------------"
+else
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    echo " WARNING: JRE 21 not detected!"
+    echo " Current version: $JAVA_VERSION"
+    echo " Please install openjdk-21-jre for best performance."
+    echo " Command: sudo apt install openjdk-21-jre"
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+fi
+
+exit 0

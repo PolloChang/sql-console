@@ -1,0 +1,140 @@
+Reusing configuration cache.
+> Task :app:processResources UP-TO-DATE
+
+> Task :app:compileJava FAILED
+/home/pollochang/Documents/git/pollo-lab/sql-console/daemon-service/app/src/main/java/work/pollochang/app/sqlconsole/protocol/handler/ListTablesHandler.java:40: error: no suitable method found for of(String,String,String)
+                Map.of("name", "type", "STRING"),
+                   ^
+    method Map.<K#1,V#1>of() is not applicable
+      (cannot infer type-variable(s) K#1,V#1
+        (actual and formal argument lists differ in length))
+    method Map.<K#2,V#2>of(K#2,V#2) is not applicable
+      (cannot infer type-variable(s) K#2,V#2
+        (actual and formal argument lists differ in length))
+    method Map.<K#3,V#3>of(K#3,V#3,K#3,V#3) is not applicable
+      (cannot infer type-variable(s) K#3,V#3
+        (actual and formal argument lists differ in length))
+    method Map.<K#4,V#4>of(K#4,V#4,K#4,V#4,K#4,V#4) is not applicable
+      (cannot infer type-variable(s) K#4,V#4
+        (actual and formal argument lists differ in length))
+    method Map.<K#5,V#5>of(K#5,V#5,K#5,V#5,K#5,V#5,K#5,V#5) is not applicable
+      (cannot infer type-variable(s) K#5,V#5
+        (actual and formal argument lists differ in length))
+    method Map.<K#6,V#6>of(K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6) is not applicable
+      (cannot infer type-variable(s) K#6,V#6
+        (actual and formal argument lists differ in length))
+    method Map.<K#7,V#7>of(K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7) is not applicable
+      (cannot infer type-variable(s) K#7,V#7
+        (actual and formal argument lists differ in length))
+    method Map.<K#8,V#8>of(K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8) is not applicable
+      (cannot infer type-variable(s) K#8,V#8
+        (actual and formal argument lists differ in length))
+    method Map.<K#9,V#9>of(K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9) is not applicable
+      (cannot infer type-variable(s) K#9,V#9
+        (actual and formal argument lists differ in length))
+    method Map.<K#10,V#10>of(K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10) is not applicable
+      (cannot infer type-variable(s) K#10,V#10
+        (actual and formal argument lists differ in length))
+    method Map.<K#11,V#11>of(K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11) is not applicable
+      (cannot infer type-variable(s) K#11,V#11
+        (actual and formal argument lists differ in length))
+  where K#1,V#1,K#2,V#2,K#3,V#3,K#4,V#4,K#5,V#5,K#6,V#6,K#7,V#7,K#8,V#8,K#9,V#9,K#10,V#10,K#11,V#11 are type-variables:
+    K#1 extends Object declared in method <K#1,V#1>of()
+    V#1 extends Object declared in method <K#1,V#1>of()
+    K#2 extends Object declared in method <K#2,V#2>of(K#2,V#2)
+    V#2 extends Object declared in method <K#2,V#2>of(K#2,V#2)
+    K#3 extends Object declared in method <K#3,V#3>of(K#3,V#3,K#3,V#3)
+    V#3 extends Object declared in method <K#3,V#3>of(K#3,V#3,K#3,V#3)
+    K#4 extends Object declared in method <K#4,V#4>of(K#4,V#4,K#4,V#4,K#4,V#4)
+    V#4 extends Object declared in method <K#4,V#4>of(K#4,V#4,K#4,V#4,K#4,V#4)
+    K#5 extends Object declared in method <K#5,V#5>of(K#5,V#5,K#5,V#5,K#5,V#5,K#5,V#5)
+    V#5 extends Object declared in method <K#5,V#5>of(K#5,V#5,K#5,V#5,K#5,V#5,K#5,V#5)
+    K#6 extends Object declared in method <K#6,V#6>of(K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6)
+    V#6 extends Object declared in method <K#6,V#6>of(K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6)
+    K#7 extends Object declared in method <K#7,V#7>of(K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7)
+    V#7 extends Object declared in method <K#7,V#7>of(K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7)
+    K#8 extends Object declared in method <K#8,V#8>of(K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8)
+    V#8 extends Object declared in method <K#8,V#8>of(K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8)
+    K#9 extends Object declared in method <K#9,V#9>of(K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9)
+    V#9 extends Object declared in method <K#9,V#9>of(K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9)
+    K#10 extends Object declared in method <K#10,V#10>of(K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10)
+    V#10 extends Object declared in method <K#10,V#10>of(K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10)
+    K#11 extends Object declared in method <K#11,V#11>of(K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11)
+    V#11 extends Object declared in method <K#11,V#11>of(K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11)
+1 error
+
+[Incubating] Problems report is available at: file:///home/pollochang/Documents/git/pollo-lab/sql-console/daemon-service/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileJava'.
+> Compilation failed; see the compiler output below.
+  /home/pollochang/Documents/git/pollo-lab/sql-console/daemon-service/app/src/main/java/work/pollochang/app/sqlconsole/protocol/handler/ListTablesHandler.java:40: error: no suitable method found for of(String,String,String)
+                  Map.of("name", "type", "STRING"),
+                     ^
+      method Map.<K#1,V#1>of() is not applicable
+        (cannot infer type-variable(s) K#1,V#1
+          (actual and formal argument lists differ in length))
+      method Map.<K#2,V#2>of(K#2,V#2) is not applicable
+        (cannot infer type-variable(s) K#2,V#2
+          (actual and formal argument lists differ in length))
+      method Map.<K#3,V#3>of(K#3,V#3,K#3,V#3) is not applicable
+        (cannot infer type-variable(s) K#3,V#3
+          (actual and formal argument lists differ in length))
+      method Map.<K#4,V#4>of(K#4,V#4,K#4,V#4,K#4,V#4) is not applicable
+        (cannot infer type-variable(s) K#4,V#4
+          (actual and formal argument lists differ in length))
+      method Map.<K#5,V#5>of(K#5,V#5,K#5,V#5,K#5,V#5,K#5,V#5) is not applicable
+        (cannot infer type-variable(s) K#5,V#5
+          (actual and formal argument lists differ in length))
+      method Map.<K#6,V#6>of(K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6) is not applicable
+        (cannot infer type-variable(s) K#6,V#6
+          (actual and formal argument lists differ in length))
+      method Map.<K#7,V#7>of(K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7) is not applicable
+        (cannot infer type-variable(s) K#7,V#7
+          (actual and formal argument lists differ in length))
+      method Map.<K#8,V#8>of(K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8) is not applicable
+        (cannot infer type-variable(s) K#8,V#8
+          (actual and formal argument lists differ in length))
+      method Map.<K#9,V#9>of(K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9) is not applicable
+        (cannot infer type-variable(s) K#9,V#9
+          (actual and formal argument lists differ in length))
+      method Map.<K#10,V#10>of(K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10) is not applicable
+        (cannot infer type-variable(s) K#10,V#10
+          (actual and formal argument lists differ in length))
+      method Map.<K#11,V#11>of(K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11) is not applicable
+        (cannot infer type-variable(s) K#11,V#11
+          (actual and formal argument lists differ in length))
+    where K#1,V#1,K#2,V#2,K#3,V#3,K#4,V#4,K#5,V#5,K#6,V#6,K#7,V#7,K#8,V#8,K#9,V#9,K#10,V#10,K#11,V#11 are type-variables:
+      K#1 extends Object declared in method <K#1,V#1>of()
+      V#1 extends Object declared in method <K#1,V#1>of()
+      K#2 extends Object declared in method <K#2,V#2>of(K#2,V#2)
+      V#2 extends Object declared in method <K#2,V#2>of(K#2,V#2)
+      K#3 extends Object declared in method <K#3,V#3>of(K#3,V#3,K#3,V#3)
+      V#3 extends Object declared in method <K#3,V#3>of(K#3,V#3,K#3,V#3)
+      K#4 extends Object declared in method <K#4,V#4>of(K#4,V#4,K#4,V#4,K#4,V#4)
+      V#4 extends Object declared in method <K#4,V#4>of(K#4,V#4,K#4,V#4,K#4,V#4)
+      K#5 extends Object declared in method <K#5,V#5>of(K#5,V#5,K#5,V#5,K#5,V#5,K#5,V#5)
+      V#5 extends Object declared in method <K#5,V#5>of(K#5,V#5,K#5,V#5,K#5,V#5,K#5,V#5)
+      K#6 extends Object declared in method <K#6,V#6>of(K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6)
+      V#6 extends Object declared in method <K#6,V#6>of(K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6,K#6,V#6)
+      K#7 extends Object declared in method <K#7,V#7>of(K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7)
+      V#7 extends Object declared in method <K#7,V#7>of(K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7,K#7,V#7)
+      K#8 extends Object declared in method <K#8,V#8>of(K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8)
+      V#8 extends Object declared in method <K#8,V#8>of(K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8,K#8,V#8)
+      K#9 extends Object declared in method <K#9,V#9>of(K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9)
+      V#9 extends Object declared in method <K#9,V#9>of(K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9,K#9,V#9)
+      K#10 extends Object declared in method <K#10,V#10>of(K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10)
+      V#10 extends Object declared in method <K#10,V#10>of(K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10,K#10,V#10)
+      K#11 extends Object declared in method <K#11,V#11>of(K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11)
+      V#11 extends Object declared in method <K#11,V#11>of(K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11,K#11,V#11)
+  1 error
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 826ms
+2 actionable tasks: 1 executed, 1 up-to-date
+Configuration cache entry reused.

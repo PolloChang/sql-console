@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+if [ "$1" = "remove" ] || [ "$1" = "deconfigure" ]; then
+    systemctl stop sql-console-daemon || true
+fi
+
+exit 0
