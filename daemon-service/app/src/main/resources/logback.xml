@@ -13,9 +13,9 @@
 
     <!-- Standard System Log: File -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/var/log/sql-console/daemon.log</file>
+        <file>${LOG_DIR:-/var/log/sql-console}/daemon.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/var/log/sql-console/daemon.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_DIR:-/var/log/sql-console}/daemon.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
@@ -30,9 +30,9 @@
 
     <!-- Audit Log: As per RFP requirements -->
     <appender name="AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/var/log/sql-console/audit.log</file>
+        <file>${LOG_DIR:-/var/log/sql-console}/audit.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/var/log/sql-console/audit.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_DIR:-/var/log/sql-console}/audit.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">

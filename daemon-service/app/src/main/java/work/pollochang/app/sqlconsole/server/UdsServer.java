@@ -55,13 +55,18 @@ public class UdsServer {
             UnixDomainSocketAddress address = UnixDomainSocketAddress.of(socketPath);
             serverChannel.bind(address);
             
-            // Set permissions: rw-rw-rw- (666)
-            try {
-                Set<PosixFilePermission> perms = PosixFilePermissions.fromString("rw-rw-rw-");
-                Files.setPosixFilePermissions(socketPath, perms);
-                logger.info("Set socket permissions to 666: {}", socketPath);
-            } catch (UnsupportedOperationException e) {
-                logger.warn("POSIX file permissions not supported on this filesystem: {}", socketPath);
+            // Set permissions: rw-rw-rw- (666) if not Windows
+            boolean isWin = System.getProperty("os.name").toLowerCase().contains("win");
+            if (!isWin) {
+                try {
+                    Set<PosixFilePermission> perms = PosixFilePermissions.fromString("rw-rw-rw-");
+                    Files.setPosixFilePermissions(socketPath, perms);
+                    logger.info("Set socket permissions to 666: {}", socketPath);
+                } catch (UnsupportedOperationException e) {
+                    logger.warn("POSIX file permissions not supported on this filesystem: {}", socketPath);
+                }
+            } else {
+                logger.info("Windows OS detected, bypassing POSIX file permissions setting for {}", socketPath);
             }
 
             logger.info("UDS Server started at {}", socketPath);

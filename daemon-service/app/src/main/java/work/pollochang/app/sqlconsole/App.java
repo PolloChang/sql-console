@@ -21,6 +21,13 @@ import java.util.Map;
  * Performs manual dependency injection and starts the UDS server.
  */
 public class App {
+    static {
+        boolean isWin = System.getProperty("os.name").toLowerCase().contains("win");
+        if (isWin && System.getProperty("LOG_DIR") == null) {
+            System.setProperty("LOG_DIR", "logs");
+        }
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
@@ -57,7 +64,9 @@ public class App {
         handlers.put("fetch", new AuditedActionHandler(fetchHandler, auditLogger));
 
         // 3. Start UDS Server
-        String socketPathStr = System.getProperty("sql.console.sock", "/run/sql-console/sql-console.sock");
+        boolean isWin = System.getProperty("os.name").toLowerCase().contains("win");
+        String defaultSock = isWin ? Paths.get(System.getenv("ALLUSERSPROFILE"), "sql-console", "sql-console.sock").toString() : "/run/sql-console/sql-console.sock";
+        String socketPathStr = System.getProperty("sql.console.sock", defaultSock);
         Path socketPath = Paths.get(socketPathStr);
         UdsServer server = new UdsServer(socketPath, handlers, auditLogger);
 

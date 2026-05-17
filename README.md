@@ -38,17 +38,72 @@ graph LR
 
 ## How to deploy?
 
+### Windows
+
+1. Install Java 21+ on your Windows environment.
+2. Run the standalone installer `sql-console-windows-installer_0.2.0_amd64.exe`:
+
+```cmd
+=============================================
+    SQL Console Windows Installer v0.2.0
+=============================================
+Enter installation directory [default: sql-console]: C:\var\sql-console
+
+Installing SQL Console to: C:\var\sql-console
+ - Extracted: sql.exe
+ - Extracted: README-Windows.txt
+ - Extracted: start-daemon.bat
+ - Extracted: sql-console-daemon-0.1.0.jar
+ - Extracted: sql-daemon-service.exe
+
+Configuring Windows Environment...
+ - C:\var\sql-console is already in User PATH
+ - Created Start Menu shortcut: SQL Console Daemon
+
+Installation Complete! ??
+To get started:
+1. [Interactive Mode]: Open Start Menu and click 'SQL Console Daemon' to start the backend service.
+2. [Background Service]: To install as an automatic background Windows Service, run as Administrator:
+   C:\var\sql-console\sql-daemon-service.exe install && C:\var\sql-console\sql-daemon-service.exe start
+3. Open a new Command Prompt or PowerShell and type 'sql -version'.
+
+Press Enter to exit...
+```
+
+* Install Service
+
+Enter admin mode, run `sql-daemon-service.exe install`, and then type `sql-daemon-service.exe start`.
+
+```cmd
+sql-daemon-service.exe install
+```
+
+* Stop Service
+
+```cmd
+sql-daemon-service.exe stop
+```
+
+* uninstall
+
+Enter admin mode, run `sql-daemon-service.exe uninstall`.
+
+```cmd
+sql-daemon-service.exe uninstall
+```
+
+
 ### Debian Base
 
 
 ```bash
 sudo apt install openjdk-21-jre
-sudo apt install ./sql-console_0.1.0_amd64.deb
+sudo apt install ./sql-console_0.2.0_amd64.deb
 ```
 
 ```log
-❯ sudo apt install ./release/sql-console_0.1.0_amd64.deb
-Note, selecting 'sql-console' instead of './release/sql-console_0.1.0_amd64.deb'
+❯ sudo apt install ./release/sql-console_0.2.0_amd64.deb
+Note, selecting 'sql-console' instead of './release/sql-console_0.2.0_amd64.deb'
 
 Installing:
   sql-console
@@ -61,10 +116,10 @@ Summary:
   Download size: 0 B / 16.6 MB
   Space needed: 0 B / 982 GB available
 
-Get:1 sql-console/release/sql-console_0.1.0_amd64.deb sql-console amd64 0.1.0 [16.6 MB]
+Get:1 sql-console/release/sql-console_0.2.0_amd64.deb sql-console amd64 0.1.0 [16.6 MB]
 Selecting previously unselected UDDHSSS sql-console.
 (Reading database ... 355507 files and directories currently installed.)
-Preparing to unpack .../sql-console_0.1.0_amd64.deb ...
+Preparing to unpack .../sql-console_0.2.0_amd64.deb ...
 Unpacking sql-console (0.1.0) ...
 Setting up sql-console (0.1.0) ...
 Created symlink '/etc/systemd/system/multi-user.target.wants/sql-console-daemon.service' → '/etc/systemd/system/sql-console-daemon.service'.
@@ -98,7 +153,7 @@ Usage: sql profile <add|list|delete> [args]
 ```
 
 ```bash
-❯ sql profile add testdb jdbc:postgresql://localhost:5432/testdb testdba fd831554
+❯ sql profile add testdb jdbc:postgresql://localhost:5432/testdb testdba password
 Profile 'testdb' added successfully.
 ```
 
@@ -116,7 +171,7 @@ You can enter interactive mode or run one-shot commands.
 **Enter Interactive REPL:**
 
 ```bash
-❯ sql -p testdb                                                                   
+❯ sql -p testdb
 sql-console v0.1.0
 Connected to: testdb
 Type \q to quit, \? for help.

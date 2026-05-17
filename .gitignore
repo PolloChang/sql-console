@@ -1,2 +1,4 @@
 release/
 client/AI-TOOLS
+package-config/deb-build/usr/
+package-config/deb-build/var/

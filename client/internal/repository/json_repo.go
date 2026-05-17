@@ -13,17 +13,28 @@ type JsonProfileRepository struct {
 }
 
 func NewJsonProfileRepository() (*JsonProfileRepository, error) {
-	home, err := os.UserHomeDir()
+	configHome, err := os.UserConfigDir()
 	if err != nil {
 		return nil, err
 	}
-	configDir := filepath.Join(home, ".sql-console")
+	configDir := filepath.Join(configHome, "sql-console")
 	if err := os.MkdirAll(configDir, 0700); err != nil {
 		return nil, err
 	}
+	profilePath := filepath.Join(configDir, "profiles.json")
+
+	// Fallback to legacy path if legacy exists and new one does not
+	if _, err := os.Stat(profilePath); os.IsNotExist(err) {
+		if home, err := os.UserHomeDir(); err == nil {
+			legacyPath := filepath.Join(home, ".sql-console", "profiles.json")
+			if _, err := os.Stat(legacyPath); err == nil {
+				profilePath = legacyPath
+			}
+		}
+	}
 
 	return &JsonProfileRepository{
-		path: filepath.Join(configDir, "profiles.json"),
+		path: profilePath,
 	}, nil
 }
 

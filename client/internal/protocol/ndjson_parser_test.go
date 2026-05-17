@@ -58,8 +58,8 @@ func TestNdjsonParser_ErrorResponse(t *testing.T) {
 	handler := &mockHandler{}
 
 	err := parser.HandleResponses(handler)
-	if err != nil {
-		t.Fatalf("HandleResponses failed: %v", err)
+	if err == nil {
+		t.Fatalf("Expected error, got nil")
 	}
 
 	if handler.errorCalled != 1 {
