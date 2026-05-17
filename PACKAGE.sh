@@ -48,7 +48,7 @@ mkdir -p $WIN_PAYLOAD
 # Build Windows client executable
 echo " - Building Windows client (sql.exe)..."
 cd client
-GOOS=windows GOARCH=amd64 /usr/local/go/bin/go build -o ../$WIN_PAYLOAD/sql.exe cmd/sql/main.go
+GOOS=windows GOARCH=amd64 /usr/local/go/bin/go build -ldflags "-X main.version=${VERSION}" -o ../$WIN_PAYLOAD/sql.exe cmd/sql/main.go
 
 # Build Windows service wrapper
 echo " - Building Windows service wrapper (sql-daemon-service.exe)..."

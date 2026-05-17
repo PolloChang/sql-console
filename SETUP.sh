@@ -2,8 +2,9 @@
 set -e
 
 # SQL Console Master Setup Script
+VERSION=$(grep "version =" daemon-service/app/build.gradle | cut -d"'" -f2)
 
-echo "--- SQL Console Setup ---"
+echo "--- SQL Console Setup (v${VERSION}) ---"
 
 # 1. Build Java Daemon
 echo "[1/2] Building Java Daemon..."
@@ -14,7 +15,7 @@ cd ..
 # 2. Build Go Client
 echo "[2/2] Building Go Client..."
 cd client
-/usr/local/go/bin/go build -o sql cmd/sql/main.go
+/usr/local/go/bin/go build -ldflags "-X main.version=${VERSION}" -o sql cmd/sql/main.go
 cd ..
 
 echo "--------------------------------------"
