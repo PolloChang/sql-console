@@ -43,7 +43,8 @@ public class QueryExecutor {
                     while (rs.next()) {
                         Map<String, Object> row = new LinkedHashMap<>();
                         for (int i = 1; i <= columnCount; i++) {
-                            row.put(metaData.getColumnName(i), rs.getObject(i));
+                            Object value = rs.getObject(i);
+                            row.put(metaData.getColumnName(i), work.pollochang.app.sqlconsole.util.JdbcTypeConverter.convert(value));
                         }
                         handler.onRow(requestId, row);
                         rowCount++;
