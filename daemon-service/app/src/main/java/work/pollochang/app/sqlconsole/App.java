@@ -54,6 +54,7 @@ public class App {
         ActionHandler listTablesHandler = new ListTablesHandler();
         ActionHandler setTransactionHandler = new SetTransactionHandler();
         ActionHandler fetchHandler = new FetchHandler(sqlEngine);
+        ActionHandler importHandler = new ImportHandler();
 
         // Wrap with Auditing Decorators
         handlers.put("ping", new AuditedActionHandler(pingHandler, auditLogger));
@@ -62,6 +63,7 @@ public class App {
         handlers.put("list-tables", new AuditedActionHandler(listTablesHandler, auditLogger));
         handlers.put("set-transaction", new AuditedActionHandler(setTransactionHandler, auditLogger));
         handlers.put("fetch", new AuditedActionHandler(fetchHandler, auditLogger));
+        handlers.put("import", new AuditedImportHandler(importHandler, auditLogger));
 
         // 3. Start UDS Server
         boolean isWin = System.getProperty("os.name").toLowerCase().contains("win");

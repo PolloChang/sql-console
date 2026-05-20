@@ -292,6 +292,49 @@ page: 1/1, total rows: 149
 
 (149 rows affected, 14ms)
 ```
+
+### 4. Importing Data
+Sql Console supports high-performance importing of CSV files directly into your database tables. By utilizing a Go-based client parser and NDJSON streaming via Unix Domain Sockets, the import process achieves extremely low memory usage (OOM protection) even when processing large datasets with hundreds of thousands of rows.
+
+#### Basic Usage
+
+To import a CSV file into a target table, specify the `-import` and `-table` flags. By default, it will use the first available profile if `-p` is omitted.
+
+```bash
+❯ sql <profile_name> -import <csv_path> -table <table_name>
+```
+
+#### Column Mapping
+
+If the CSV header names do not match the database column names, you can specify a custom column mapping using the `-map` flag:
+
+```bash
+❯ sql -p testdb -import TMP/data.csv -table users -map "Username=username,EmailAddress=email"
+```
+
+*Format*: `-map "csvHeader1=dbColumn1,csvHeader2=dbColumn2,..."`
+
+#### Special Table Rule (`cns_data_tmp`)
+
+For the standard temporary table `cns_data_tmp`, Sql Console has a built-in default mapping if `-map` is omitted:
+* `國家代碼` -> `country_code`
+* `地方代碼` -> `location_code`
+* `國家名稱` -> `country_name`
+* `地方名稱` -> `location_name`
+* `備註` -> `remarks`
+
+**Example:**
+```bash
+❯ sql -p testdb -import TMP/CNS-13189_2017.csv -table cns_data_tmp
+```
+
+#### How it Works
+
+1. **Client Parsing**: The Go client reads the CSV file in batches, handles BOM (Byte Order Mark), applies headers mapping, and serializes the data into NDJSON.
+2. **IPC Streaming**: NDJSON payloads are streamed over UDS (Unix Domain Sockets) in batches of 1,000 rows to the Java Daemon.
+3. **Daemon Batch Insert**: The Java Daemon receives the NDJSON stream, parses it into an `ImportRequest` record, and executes JDBC Batch Inserts with detailed exception tracking (captures specific `BatchUpdateException` details for auditing).
+4. **Auditing**: All import attempts, row counts, and detailed outcomes are logged into `/var/log/sql-console/audit.log`.
+
 ---
 
 ## logs

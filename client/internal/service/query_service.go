@@ -1,10 +1,15 @@
 package service
 
 import (
+	"bufio"
 	"context"
+	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"io"
+	"os"
 	"os/user"
+	"strings"
 
 	"github.com/pollolab/sql-console/client/internal/domain"
 )
@@ -204,4 +209,131 @@ func (s *QueryService) ListTables(ctx context.Context, profileName string, handl
 	}
 
 	return s.messenger.Send(ctx, listReq, handler)
+}
+
+// ImportCSV reads a CSV file in batches and sends import requests to the daemon.
+func (s *QueryService) ImportCSV(ctx context.Context, profileName, filePath, tableName string, columnMap map[string]string, handler domain.ResponseHandler) error {
+	// 1. Load Profile
+	profile, err := s.profileSvc.GetProfile(profileName)
+	if err != nil {
+		return fmt.Errorf("failed to load profile: %w", err)
+	}
+
+	// 2. Connect (Authenticate)
+	connectReq := domain.Request{
+		Version:   "1.0",
+		Action:    "connect",
+		RequestId: "req-auth",
+		OSUser:    s.getOSUser(),
+		Payload: map[string]string{
+			"profile":  profile.Name,
+			"url":      profile.URL,
+			"username": profile.Username,
+			"password": profile.Password,
+		},
+	}
+
+	if err := s.messenger.Send(context.Background(), connectReq, &connectHandler{}); err != nil {
+		return err
+	}
+
+	// 3. Open CSV file
+	f, err := os.Open(filePath)
+	if err != nil {
+		return fmt.Errorf("failed to open CSV file %s: %w", filePath, err)
+	}
+	defer f.Close()
+
+	// Handle optional UTF-8 BOM
+	bufReader := bufio.NewReader(f)
+	bom, err := bufReader.Peek(3)
+	if err == nil && len(bom) == 3 && bom[0] == 0xEF && bom[1] == 0xBB && bom[2] == 0xBF {
+		bufReader.Discard(3)
+	}
+
+	csvReader := csv.NewReader(bufReader)
+	csvReader.LazyQuotes = true
+
+	// Read header
+	headers, err := csvReader.Read()
+	if err != nil {
+		return fmt.Errorf("failed to read CSV headers: %w", err)
+	}
+
+	for i, h := range headers {
+		cleaned := strings.TrimSpace(h)
+		if mapped, ok := columnMap[cleaned]; ok {
+			headers[i] = mapped
+		} else {
+			headers[i] = cleaned
+		}
+	}
+
+	// Read rows in batches
+	batchSize := 1000
+	var batch [][]interface{}
+
+	batchNo := 1
+	totalImported := 0
+
+	for {
+		row, err := csvReader.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return fmt.Errorf("error reading CSV row: %w", err)
+		}
+
+		var objRow []interface{}
+		for _, val := range row {
+			objRow = append(objRow, strings.TrimSpace(val))
+		}
+		batch = append(batch, objRow)
+
+		if len(batch) >= batchSize {
+			req := domain.Request{
+				Version:   "1.0",
+				Action:    "import",
+				RequestId: fmt.Sprintf("req-import-%d", batchNo),
+				OSUser:    s.getOSUser(),
+				Payload: map[string]interface{}{
+					"table":   tableName,
+					"columns": headers,
+					"rows":    batch,
+				},
+			}
+
+			if err := s.messenger.Send(ctx, req, handler); err != nil {
+				return fmt.Errorf("import batch %d failed: %w", batchNo, err)
+			}
+
+			totalImported += len(batch)
+			batch = nil
+			batchNo++
+		}
+	}
+
+	// Send remaining batch
+	if len(batch) > 0 {
+		req := domain.Request{
+			Version:   "1.0",
+			Action:    "import",
+			RequestId: fmt.Sprintf("req-import-%d", batchNo),
+			OSUser:    s.getOSUser(),
+			Payload: map[string]interface{}{
+				"table":   tableName,
+				"columns": headers,
+				"rows":    batch,
+			},
+		}
+
+		if err := s.messenger.Send(ctx, req, handler); err != nil {
+			return fmt.Errorf("import final batch failed: %w", err)
+		}
+		totalImported += len(batch)
+	}
+
+	fmt.Printf("\n[INFO] Successfully imported %d rows into table %s.\n", totalImported, tableName)
+	return nil
 }

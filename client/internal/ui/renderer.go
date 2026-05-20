@@ -133,7 +133,11 @@ func (r *DefaultTableRenderer) RenderFooter(data json.RawMessage) {
 	}
 
 	// 3. Print Final Summary
-	fmt.Printf("\n(%d rows affected, %dms)\n", stats.RowCount, stats.ExecutionTime)
+	rowsAffected := stats.RowCount
+	if stats.UpdateCount > 0 {
+		rowsAffected = stats.UpdateCount
+	}
+	fmt.Printf("\n(%d rows affected, %dms)\n", rowsAffected, stats.ExecutionTime)
 
 	r.reset()
 }
