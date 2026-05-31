@@ -327,6 +327,14 @@ For the standard temporary table `cns_data_tmp`, Sql Console has a built-in defa
 ```bash
 ❯ sql -p testdb -import TMP/CNS-13189_2017.csv -table cns_data_tmp
 ```
+#### How it Works
+
+1. **Client Parsing**: The Go client reads the CSV file in batches, handles BOM (Byte Order Mark), applies headers mapping, and serializes the data into NDJSON.
+2. **IPC Streaming**: NDJSON payloads are streamed over UDS (Unix Domain Sockets) in batches of 1,000 rows to the Java Daemon.
+3. **Daemon Batch Insert**: The Java Daemon receives the NDJSON stream, parses it into an `ImportRequest` record, and executes JDBC Batch Inserts with detailed exception tracking (captures specific `BatchUpdateException` details for auditing).
+4. **Auditing**: All import attempts, row counts, and detailed outcomes are logged into `/var/log/sql-console/audit.log`.
+
+---
 
 ### 5. Oracle Database Special Commands
 
@@ -372,14 +380,6 @@ page: 1/1, total rows: 1
 (1 rows affected, 226ms)
 ```
 
-#### How it Works
-
-1. **Client Parsing**: The Go client reads the CSV file in batches, handles BOM (Byte Order Mark), applies headers mapping, and serializes the data into NDJSON.
-2. **IPC Streaming**: NDJSON payloads are streamed over UDS (Unix Domain Sockets) in batches of 1,000 rows to the Java Daemon.
-3. **Daemon Batch Insert**: The Java Daemon receives the NDJSON stream, parses it into an `ImportRequest` record, and executes JDBC Batch Inserts with detailed exception tracking (captures specific `BatchUpdateException` details for auditing).
-4. **Auditing**: All import attempts, row counts, and detailed outcomes are logged into `/var/log/sql-console/audit.log`.
-
----
 
 ## logs
 
