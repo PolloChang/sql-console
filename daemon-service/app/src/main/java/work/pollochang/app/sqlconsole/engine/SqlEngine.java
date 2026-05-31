@@ -18,6 +18,7 @@ public class SqlEngine {
     private static final Logger logger = LoggerFactory.getLogger(SqlEngine.class);
     private final SqlSplitter splitter = new SqlSplitter();
     private final QueryExecutor executor = new QueryExecutor();
+    private final ClientCommandProcessor commandProcessor = new ClientCommandProcessor();
     
     private final int MAX_CACHE_SIZE = 100;
     private final Map<String, Object> queryCache = new LinkedHashMap<>(MAX_CACHE_SIZE, 0.75f, true) {
@@ -48,7 +49,20 @@ public class SqlEngine {
                     queryCache.put(result.sqlId(), result);
                 }, limit);
                 
-                executor.execute(conn, sql, sqlId, txStatus, requestId, cachingHandler);
+                String sqlToExecute = sql;
+                try {
+                    java.util.Optional<String> rewrittenSql = commandProcessor.tryRewrite(conn, sql);
+                    if (rewrittenSql.isPresent()) {
+                        sqlToExecute = rewrittenSql.get();
+                        logger.info("SQL [{}] intercepted and rewritten to: [{}]", sqlId, sqlToExecute);
+                    }
+                } catch (IllegalArgumentException e) {
+                    logger.warn("Client command validation failed: {}", e.getMessage());
+                    cachingHandler.onError(requestId, "SEC-403", e.getMessage());
+                    continue;
+                }
+                
+                executor.execute(conn, sqlToExecute, sqlId, txStatus, requestId, cachingHandler);
             }
         } catch (Exception e) {
             logger.error("Failed to execute batch", e);

@@ -70,7 +70,7 @@ func (m *daemonService) Execute(args []string, r <-chan svc.ChangeRequest, s cha
 	if len(matches) > 0 {
 		jarPath = matches[0]
 	} else {
-		jarPath = filepath.Join(baseDir, "sql-console-daemon-0.2.1.jar")
+		jarPath = filepath.Join(baseDir, "sql-console-daemon-0.3.0.jar")
 	}
 
 	m.cmd = exec.Command("java", "-jar", jarPath)
