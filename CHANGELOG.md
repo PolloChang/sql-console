@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [v0.3.1]-2026-07-11
+
+* Fix: Implement JSON unmarshaling compatibility fallback for legacy array format in profiles.json.
+* Chore: Bump version to 0.3.1.
+
 ## [v0.3.0]-2026-05-31
 
 * Feature: Support Oracle Database special commands (`show parameter` and `desc`/`describe`).

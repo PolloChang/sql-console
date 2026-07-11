@@ -41,11 +41,11 @@ graph LR
 ### Windows
 
 1. Install Java 21+ on your Windows environment.
-2. Run the standalone installer `sql-console-windows-installer_0.3.0_amd64.exe`:
+2. Run the standalone installer `sql-console-windows-installer_0.3.1_amd64.exe`:
 
 ```cmd
 =============================================
-    SQL Console Windows Installer v0.3.0
+    SQL Console Windows Installer v0.3.1
 =============================================
 Enter installation directory [default: sql-console]: C:\var\sql-console
 
@@ -53,7 +53,7 @@ Installing SQL Console to: C:\var\sql-console
  - Extracted: sql.exe
  - Extracted: README-Windows.txt
  - Extracted: start-daemon.bat
- - Extracted: sql-console-daemon-0.3.0.jar
+ - Extracted: sql-console-daemon-0.3.1.jar
  - Extracted: sql-daemon-service.exe
 
 Configuring Windows Environment...
@@ -98,12 +98,12 @@ sql-daemon-service.exe uninstall
 
 ```bash
 sudo apt install openjdk-21-jre
-sudo apt install ./sql-console_0.3.0_amd64.deb
+sudo apt install ./sql-console_0.3.1_amd64.deb
 ```
 
 ```log
-❯ sudo apt install ./release/sql-console_0.3.0_amd64.deb
-Note, selecting 'sql-console' instead of './release/sql-console_0.3.0_amd64.deb'
+❯ sudo apt install ./release/sql-console_0.3.1_amd64.deb
+Note, selecting 'sql-console' instead of './release/sql-console_0.3.1_amd64.deb'
 
 Installing:
   sql-console
@@ -116,12 +116,12 @@ Summary:
   Download size: 0 B / 16.6 MB
   Space needed: 0 B / 982 GB available
 
-Get:1 sql-console/release/sql-console_0.3.0_amd64.deb sql-console amd64 0.3.0 [16.6 MB]
+Get:1 sql-console/release/sql-console_0.3.1_amd64.deb sql-console amd64 0.3.1 [16.6 MB]
 Selecting previously unselected UDDHSSS sql-console.
 (Reading database ... 355507 files and directories currently installed.)
-Preparing to unpack .../sql-console_0.3.0_amd64.deb ...
-Unpacking sql-console (0.3.0) ...
-Setting up sql-console (0.3.0) ...
+Preparing to unpack .../sql-console_0.3.1_amd64.deb ...
+Unpacking sql-console (0.3.1) ...
+Setting up sql-console (0.3.1) ...
 Created symlink '/etc/systemd/system/multi-user.target.wants/sql-console-daemon.service' → '/etc/systemd/system/sql-console-daemon.service'.
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  WARNING: JRE 21 not detected!
@@ -172,7 +172,7 @@ You can enter interactive mode or run one-shot commands.
 
 ```bash
 ❯ sql -p testdb
-sql-console v0.3.0
+sql-console v0.3.1
 Connected to: testdb
 Type \q to quit, \? for help.
 

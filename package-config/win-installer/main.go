@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 )
 
-var installerVersion = "0.3.0"
+var installerVersion = "0.3.1"
 //go:embed payload.zip
 var payloadArchive []byte
 

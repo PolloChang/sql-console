@@ -50,6 +50,17 @@ func (r *JsonProfileRepository) Load() (map[string]domain.JdbcProfile, error) {
 
 	var profiles map[string]domain.JdbcProfile
 	if err := json.Unmarshal(data, &profiles); err != nil {
+		// Fallback to parsing legacy {"profiles": [...]} array format
+		var legacy struct {
+			Profiles []domain.JdbcProfile `json:"profiles"`
+		}
+		if legacyErr := json.Unmarshal(data, &legacy); legacyErr == nil {
+			profiles = make(map[string]domain.JdbcProfile)
+			for _, p := range legacy.Profiles {
+				profiles[p.Name] = p
+			}
+			return profiles, nil
+		}
 		return nil, err
 	}
 
